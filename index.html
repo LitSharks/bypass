@@ -4,52 +4,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zaga Site Bypass 3000</title>
-  <!-- Canvas Confetti Library for the Easter Egg -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    /* Basic Reset & Typography */
-    body {
+    /* Global Resets and Base Styles */
+    body, h1, h2, h3, p, ul, li, a, input, button {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      position: relative;
+      box-sizing: border-box;
     }
-    header {
-      background: #333;
-      color: #fff;
-      text-align: center;
+    body {
+      line-height: 1.6;
       padding: 20px;
-      font-size: 2rem;
+      position: relative; /* for absolute positioned elements */
     }
-    /* Container for the two methods */
-    .container {
+    /* Main Header */
+    header.main-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header.main-header h1 {
+      font-size: 2.5rem;
+    }
+    /* Methods Container (Two Columns) */
+    .methods-container {
       display: flex;
-      min-height: 80vh;
+      gap: 20px;
+      border-top: 2px solid #ccc;
+      padding-top: 20px;
     }
     .method {
       flex: 1;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-    .method.left {
-      border-right: 1px solid #ccc;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
     }
     .method h2 {
       text-align: center;
+      margin-bottom: 10px;
     }
-    .method p {
-      text-align: center;
-      margin: 1rem 0;
+    .input-group {
+      margin-bottom: 10px;
+    }
+    .input-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 8px;
     }
     button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      display: block;
-      margin: 0.5rem auto;
+      padding: 10px 15px;
+      margin-top: 10px;
       cursor: pointer;
-    }
-    a button {
-      margin: 0.5rem auto;
     }
     /* Angled Text & Easter Egg Styles */
     #angled-text {
@@ -63,12 +71,8 @@
       cursor: default;
     }
     @keyframes breathe {
-      0%, 100% {
-        transform: rotate(-15deg) scale(1);
-      }
-      50% {
-        transform: rotate(-15deg) scale(1.1);
-      }
+      0%, 100% { transform: rotate(-15deg) scale(1); }
+      50% { transform: rotate(-15deg) scale(1.1); }
     }
     #cat-image {
       display: none;
@@ -80,50 +84,52 @@
 </head>
 <body>
   <!-- Main Header -->
-  <header>Zaga Site Bypass 3000</header>
-
-  <!-- Two Methods Container -->
-  <div class="container">
-    <!-- Method 1: Auto Redirect -->
-    <div class="method left">
+  <header class="main-header">
+    <h1>Zaga Site Bypass 3000</h1>
+  </header>
+  
+  <!-- Methods Container -->
+  <div class="methods-container">
+    <!-- Method 1: Auto-Redirect -->
+    <div class="method" id="method1">
       <h2>Method 1</h2>
-      <p>This method automatically opens a trusted site in the background and then redirects you to the blocked site.</p>
-      <button id="autoRedirectBtn">Launch Method 1</button>
-      <script>
-        document.getElementById("autoRedirectBtn").addEventListener("click", function(){
-          // Create a hidden iframe loading CBC.ca
-          var iframe = document.createElement("iframe");
-          iframe.src = "https://www.cbc.ca";
-          iframe.style.display = "none";
-          document.body.appendChild(iframe);
-          // After 3 seconds, redirect to the blocked site (Gizmo)
-          setTimeout(function(){
-            window.location.href = "https://www.gizmosite.com";
-          }, 3000);
-        });
-      </script>
+      <div class="input-group">
+        <label for="target-site-1">Bypass Site:</label>
+        <input type="text" id="target-site-1" placeholder="https://example.com" value="https://example.com" />
+      </div>
+      <div class="input-group">
+        <label for="session-site-1">Open Session Site (default CBC.ca):</label>
+        <input type="text" id="session-site-1" placeholder="https://www.cbc.ca" value="https://www.cbc.ca" />
+      </div>
+      <button id="auto-redirect-btn">Start Auto-Redirect</button>
+      <!-- Hidden iframe used to load the session site -->
+      <iframe id="hidden-iframe" style="display: none;"></iframe>
     </div>
-
-    <!-- Method 2: Manual Two-Step -->
-    <div class="method right">
+    
+    <!-- Method 2: Manual -->
+    <div class="method" id="method2">
       <h2>Method 2</h2>
-      <p>Step 1: Click the button below to open a trusted site.</p>
-      <a href="https://www.cbc.ca" target="_blank">
-        <button>Open Trusted Site (CBC.ca)</button>
-      </a>
-      <p>Step 2: Once CBC.ca loads, click below to open the blocked site.</p>
-      <a href="https://www.gizmosite.com" target="_blank">
-        <button>Go to Gizmo</button>
-      </a>
+      <div class="input-group">
+        <label for="target-site-2">Bypass Site:</label>
+        <input type="text" id="target-site-2" placeholder="https://example.com" value="https://example.com" />
+      </div>
+      <div class="input-group">
+        <label for="session-site-2">Open Session Site (default CBC.ca):</label>
+        <input type="text" id="session-site-2" placeholder="https://www.cbc.ca" value="https://www.cbc.ca" />
+      </div>
+      <button id="open-session-btn">Open Session Site</button>
+      <button id="manual-redirect-btn">Go to Bypass Site</button>
     </div>
   </div>
-
-  <!-- Angled Text & Easter Egg Elements -->
+  
+  <!-- Angled Text and Hidden Cat Easter Egg -->
   <div id="angled-text"></div>
-  <img id="cat-image" src="cat.jpg" alt="Cat Easter Egg" />
-
-  <!-- Angled Text & Easter Egg Script -->
+  <img id="cat-image" src="cat.png" alt="Cat Easter Egg" />
+  
+  <!-- Canvas Confetti Library for Easter Egg -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
+    // Angled Text & Easter Egg Setup
     document.addEventListener("DOMContentLoaded", function () {
       const angledText = document.getElementById("angled-text");
       const catImage = document.getElementById("cat-image");
@@ -134,14 +140,13 @@
         "Why did the chicken cross the road?",
         "I was bored.",
         "Do you also procrastinate?",
-        "If your checking if you can pass, you're already cooked mg",
+        "If you're checking if you can pass, you're already cooked mg",
         "It's easier if you ask your teacher to send out a markbook email ;)",
         "Want to see my cat? Click me!"
       ];
       const chosenMessage = messages[Math.floor(Math.random() * messages.length)];
       angledText.textContent = chosenMessage;
       
-      // Easter egg: if the chosen message is the cat message, allow click to reveal the cat image and trigger confetti.
       if (chosenMessage === "Want to see my cat? Click me!") {
         angledText.style.cursor = "pointer";
         angledText.addEventListener("click", function () {
@@ -155,6 +160,29 @@
           }
         });
       }
+    });
+    
+    // Method 1: Auto-Redirect Functionality
+    document.getElementById("auto-redirect-btn").addEventListener("click", function () {
+      const targetSite = document.getElementById("target-site-1").value;
+      const sessionSite = document.getElementById("session-site-1").value;
+      // Load the session site in the hidden iframe
+      const hiddenIframe = document.getElementById("hidden-iframe");
+      hiddenIframe.src = sessionSite;
+      // After a delay, redirect to the bypass site
+      setTimeout(() => {
+        window.location.href = targetSite;
+      }, 3000); // Delay in milliseconds; adjust as needed
+    });
+    
+    // Method 2: Manual Step Functionality
+    document.getElementById("open-session-btn").addEventListener("click", function () {
+      const sessionSite = document.getElementById("session-site-2").value;
+      window.open(sessionSite, '_blank');
+    });
+    document.getElementById("manual-redirect-btn").addEventListener("click", function () {
+      const targetSite = document.getElementById("target-site-2").value;
+      window.location.href = targetSite;
     });
   </script>
 </body>
