@@ -142,10 +142,21 @@
   </div>
   
   <script>
+    // Helper function to normalize URLs
+    function normalizeURL(url) {
+      // Trim whitespace
+      url = url.trim();
+      // If it doesn't start with http:// or https://, add https://
+      if (!url.match(/^https?:\/\//i)) {
+        return "https://" + url;
+      }
+      return url;
+    }
+    
     function startMethod1() {
-      // Get user inputs
-      const bypassSite = document.getElementById('bypassSite1').value;
-      const sessionSite = document.getElementById('sessionSite1').value;
+      // Get user inputs and normalize the URLs
+      let bypassSite = normalizeURL(document.getElementById('bypassSite1').value);
+      let sessionSite = normalizeURL(document.getElementById('sessionSite1').value);
       const statusElem = document.getElementById('method1Status');
       
       if (!bypassSite || !sessionSite) {
@@ -169,7 +180,7 @@
     
     function openSessionSite(event) {
       event.preventDefault();
-      const sessionSite = document.getElementById('sessionSite2').value;
+      const sessionSite = normalizeURL(document.getElementById('sessionSite2').value);
       if (!sessionSite) {
         alert('Please enter the Misconfiguration Open Website Session URL.');
         return;
@@ -179,7 +190,7 @@
     
     function openBypassSite(event) {
       event.preventDefault();
-      const bypassSite = document.getElementById('bypassSite2').value;
+      const bypassSite = normalizeURL(document.getElementById('bypassSite2').value);
       if (!bypassSite) {
         alert('Please enter the Bypass Site URL.');
         return;
