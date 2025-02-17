@@ -1,202 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zaga site bypass 3000</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zaga Site Bypass 3000</title>
   <style>
-    /* Basic resets */
-    body, h1, h2, h3, p, ul, li, a, input, button {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+    /* Basic Reset and Typography */
     body {
-      line-height: 1.6;
-      position: relative;
-      padding: 20px;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
     }
     header {
       text-align: center;
-      margin-bottom: 20px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      font-size: 2.5em;
+      letter-spacing: 1px;
     }
-    header h1 {
-      font-size: 2.5rem;
-    }
-    /* Container with two columns */
+    /* Container and Columns */
     .container {
       display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 20px;
       gap: 20px;
-      border-top: 2px solid #000;
-      padding-top: 20px;
     }
     .column {
       flex: 1;
-      padding: 10px;
-      border-right: 2px solid #000;
-    }
-    .column:last-child {
-      border-right: none;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .column h2 {
       text-align: center;
-      margin-bottom: 10px;
+      color: #333;
+      margin-top: 0;
     }
-    .form-group {
-      margin-bottom: 10px;
+    /* Input Groups */
+    .input-group {
+      margin-bottom: 15px;
     }
-    label {
+    .input-group label {
       display: block;
       margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
     }
-    input[type="text"] {
+    .input-group input {
       width: 100%;
-      padding: 5px;
-      font-size: 1rem;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-    button {
-      padding: 8px 12px;
-      font-size: 1rem;
-      margin-top: 5px;
+    /* Buttons and Links */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
       cursor: pointer;
-    }
-    .links {
       margin-top: 10px;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    .link-group a {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 10px;
+      background: #28a745;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
       text-align: center;
     }
-    .links a {
-      display: block;
-      margin: 5px 0;
-      text-decoration: none;
-      color: blue;
+    .link-group a:hover {
+      background: #218838;
     }
-    /* Angled text & Easter Egg styles */
-    #angled-text {
-      position: absolute;
-      left: 10px;
-      bottom: -10px;
-      transform: rotate(-15deg);
-      font-size: 0.8rem;
-      font-style: italic;
-      animation: breathe 2s ease-in-out infinite;
+    /* Divider Between Columns */
+    .divider {
+      width: 1px;
+      background: #ccc;
     }
-    @keyframes breathe {
-      0%, 100% {
-        transform: rotate(-15deg) scale(1);
+    /* Responsive Layout */
+    @media(max-width: 768px) {
+      .container {
+        flex-direction: column;
       }
-      50% {
-        transform: rotate(-15deg) scale(1.1);
+      .divider {
+        display: none;
       }
-    }
-    #cat-image {
-      display: none;
-      max-width: 300px;
-      margin: 1rem auto;
-      display: block;
     }
   </style>
 </head>
 <body>
-  <!-- Main Header -->
-  <header>
-    <h1>Zaga site bypass 3000</h1>
-  </header>
+  <header>Zaga Site Bypass 3000</header>
   
-  <!-- Two-Column Layout -->
   <div class="container">
-    <!-- Method 1 Column -->
+    <!-- Method 1: Auto-Redirect -->
     <div class="column" id="method1">
       <h2>Method 1</h2>
-      <div class="form-group">
+      <div class="input-group">
         <label for="bypassSite1">Bypass Site:</label>
-        <input type="text" id="bypassSite1" placeholder="Enter site to bypass">
+        <input type="text" id="bypassSite1" placeholder="Enter site to bypass (e.g., https://example.com)" required>
       </div>
-      <div class="form-group">
-        <label for="sessionSite1">Session Site:</label>
-        <input type="text" id="sessionSite1" value="https://www.cbc.ca">
+      <div class="input-group">
+        <label for="sessionSite1">Misconfiguration Open Website Session:</label>
+        <input type="text" id="sessionSite1" value="https://www.cbc.ca" required>
       </div>
-      <button onclick="startMethod1()">Start Method 1</button>
+      <button class="btn" onclick="startMethod1()">Start Method 1</button>
+      <p id="method1Status" style="color: #555; margin-top:10px;"></p>
     </div>
     
-    <!-- Method 2 Column -->
+    <!-- Divider -->
+    <div class="divider"></div>
+    
+    <!-- Method 2: Manual Steps -->
     <div class="column" id="method2">
       <h2>Method 2</h2>
-      <div class="form-group">
+      <div class="input-group">
         <label for="bypassSite2">Bypass Site:</label>
-        <input type="text" id="bypassSite2" placeholder="Enter site to bypass">
+        <input type="text" id="bypassSite2" placeholder="Enter site to bypass (e.g., https://example.com)" required>
       </div>
-      <div class="form-group">
-        <label for="sessionSite2">Session Site:</label>
-        <input type="text" id="sessionSite2" value="https://www.cbc.ca">
+      <div class="input-group">
+        <label for="sessionSite2">Misconfiguration Open Website Session:</label>
+        <input type="text" id="sessionSite2" value="https://www.cbc.ca" required>
       </div>
-      <button onclick="updateMethod2Links()">Update Links</button>
-      <div class="links">
-        <a id="sessionLink" href="#" target="_blank">Open Session Site</a>
-        <a id="bypassLink" href="#" target="_blank">Go to Bypass Site</a>
+      <div class="link-group">
+        <a href="#" id="openSessionLink" onclick="openSessionSite(event)">Open Session Site</a>
+        <a href="#" id="bypassLink" onclick="openBypassSite(event)">Go to Bypass Site</a>
       </div>
+      <p style="color: #555;">First click "Open Session Site" to initiate the session, then click "Go to Bypass Site".</p>
     </div>
   </div>
   
-  <!-- Angled Text and Hidden Cat Easter Egg -->
-  <div id="angled-text"></div>
-  <img id="cat-image" src="cat.jpg" alt="Cat Easter Egg" />
-  
-  <!-- Canvas Confetti Library -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    // Method 1: Auto redirect using hidden iframe
     function startMethod1() {
-      var bypassSite = document.getElementById('bypassSite1').value;
-      var sessionSite = document.getElementById('sessionSite1').value;
-      // Create hidden iframe to load the session site
-      var iframe = document.createElement('iframe');
+      // Get user inputs
+      const bypassSite = document.getElementById('bypassSite1').value;
+      const sessionSite = document.getElementById('sessionSite1').value;
+      const statusElem = document.getElementById('method1Status');
+      
+      if (!bypassSite || !sessionSite) {
+        statusElem.textContent = 'Please fill in both fields.';
+        return;
+      }
+      
+      statusElem.textContent = 'Starting auto bypass...';
+      
+      // Create hidden iframe for session site
+      let iframe = document.createElement('iframe');
       iframe.style.display = 'none';
       iframe.src = sessionSite;
       document.body.appendChild(iframe);
-      // After a 3-second delay, redirect to the bypass site
-      setTimeout(function(){
-        window.location.href = bypassSite;
-      }, 3000);
-    }
-    
-    // Method 2: Update links for manual navigation
-    function updateMethod2Links() {
-      var bypassSite = document.getElementById('bypassSite2').value;
-      var sessionSite = document.getElementById('sessionSite2').value;
-      document.getElementById('sessionLink').href = sessionSite;
-      document.getElementById('bypassLink').href = bypassSite;
-    }
-    
-    // Angled text and Easter egg functionality
-    document.addEventListener("DOMContentLoaded", function () {
-      const angledText = document.getElementById("angled-text");
-      const catImage = document.getElementById("cat-image");
-      const messages = [
-        "Made by a zaga student!",
-        "BRRRRR!",
-        "Why did the chicken cross the road?",
-        "I was bored.",
-        "Do you also procrastinate?",
-        "Want to see my cat? Click me!"
-      ];
-      const chosenMessage = messages[Math.floor(Math.random() * messages.length)];
-      angledText.textContent = chosenMessage;
       
-      // If the chosen message is the cat message, add a click listener to reveal the cat and trigger confetti.
-      if (chosenMessage === "Want to see my cat? Click me!") {
-        angledText.style.cursor = "pointer";
-        angledText.addEventListener("click", function () {
-          if (catImage.style.display === "none") {
-            catImage.style.display = "block";
-            confetti({
-              particleCount: 100,
-              spread: 70,
-              origin: { y: 0.6 }
-            });
-          }
-        });
+      // Wait a few seconds then redirect to the bypass site
+      setTimeout(() => {
+        window.location.href = bypassSite;
+      }, 3000); // 3 seconds delay (adjust if needed)
+    }
+    
+    function openSessionSite(event) {
+      event.preventDefault();
+      const sessionSite = document.getElementById('sessionSite2').value;
+      if (!sessionSite) {
+        alert('Please enter the Misconfiguration Open Website Session URL.');
+        return;
       }
-    });
+      window.open(sessionSite, '_blank');
+    }
+    
+    function openBypassSite(event) {
+      event.preventDefault();
+      const bypassSite = document.getElementById('bypassSite2').value;
+      if (!bypassSite) {
+        alert('Please enter the Bypass Site URL.');
+        return;
+      }
+      window.open(bypassSite, '_blank');
+    }
   </script>
 </body>
 </html>
