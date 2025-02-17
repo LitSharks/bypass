@@ -3,63 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zaga Site Bypass 3000</title>
+  <title>Zaga site bypass 3000</title>
   <style>
-    /* Global Resets and Base Styles */
+    /* Basic resets */
     body, h1, h2, h3, p, ul, li, a, input, button {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      box-sizing: border-box;
     }
     body {
       line-height: 1.6;
+      position: relative;
       padding: 20px;
-      position: relative; /* for absolute positioned elements */
     }
-    /* Main Header */
-    header.main-header {
+    header {
       text-align: center;
       margin-bottom: 20px;
     }
-    header.main-header h1 {
+    header h1 {
       font-size: 2.5rem;
     }
-    /* Methods Container (Two Columns) */
-    .methods-container {
+    /* Container with two columns */
+    .container {
       display: flex;
       gap: 20px;
-      border-top: 2px solid #ccc;
+      border-top: 2px solid #000;
       padding-top: 20px;
     }
-    .method {
+    .column {
       flex: 1;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 15px;
+      padding: 10px;
+      border-right: 2px solid #000;
     }
-    .method h2 {
+    .column:last-child {
+      border-right: none;
+    }
+    .column h2 {
       text-align: center;
       margin-bottom: 10px;
     }
-    .input-group {
+    .form-group {
       margin-bottom: 10px;
     }
-    .input-group label {
+    label {
       display: block;
-      font-weight: bold;
       margin-bottom: 5px;
     }
-    .input-group input {
+    input[type="text"] {
       width: 100%;
-      padding: 8px;
+      padding: 5px;
+      font-size: 1rem;
     }
     button {
-      padding: 10px 15px;
-      margin-top: 10px;
+      padding: 8px 12px;
+      font-size: 1rem;
+      margin-top: 5px;
       cursor: pointer;
     }
-    /* Angled Text & Easter Egg Styles */
+    .links {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .links a {
+      display: block;
+      margin: 5px 0;
+      text-decoration: none;
+      color: blue;
+    }
+    /* Angled text & Easter Egg styles */
     #angled-text {
       position: absolute;
       left: 10px;
@@ -68,11 +79,14 @@
       font-size: 0.8rem;
       font-style: italic;
       animation: breathe 2s ease-in-out infinite;
-      cursor: default;
     }
     @keyframes breathe {
-      0%, 100% { transform: rotate(-15deg) scale(1); }
-      50% { transform: rotate(-15deg) scale(1.1); }
+      0%, 100% {
+        transform: rotate(-15deg) scale(1);
+      }
+      50% {
+        transform: rotate(-15deg) scale(1.1);
+      }
     }
     #cat-image {
       display: none;
@@ -84,69 +98,91 @@
 </head>
 <body>
   <!-- Main Header -->
-  <header class="main-header">
-    <h1>Zaga Site Bypass 3000</h1>
+  <header>
+    <h1>Zaga site bypass 3000</h1>
   </header>
   
-  <!-- Methods Container -->
-  <div class="methods-container">
-    <!-- Method 1: Auto-Redirect -->
-    <div class="method" id="method1">
+  <!-- Two-Column Layout -->
+  <div class="container">
+    <!-- Method 1 Column -->
+    <div class="column" id="method1">
       <h2>Method 1</h2>
-      <div class="input-group">
-        <label for="target-site-1">Bypass Site:</label>
-        <input type="text" id="target-site-1" placeholder="https://example.com" value="https://example.com" />
+      <div class="form-group">
+        <label for="bypassSite1">Bypass Site:</label>
+        <input type="text" id="bypassSite1" placeholder="Enter site to bypass">
       </div>
-      <div class="input-group">
-        <label for="session-site-1">Open Session Site (default CBC.ca):</label>
-        <input type="text" id="session-site-1" placeholder="https://www.cbc.ca" value="https://www.cbc.ca" />
+      <div class="form-group">
+        <label for="sessionSite1">Session Site:</label>
+        <input type="text" id="sessionSite1" value="https://www.cbc.ca">
       </div>
-      <button id="auto-redirect-btn">Start Auto-Redirect</button>
-      <!-- Hidden iframe used to load the session site -->
-      <iframe id="hidden-iframe" style="display: none;"></iframe>
+      <button onclick="startMethod1()">Start Method 1</button>
     </div>
     
-    <!-- Method 2: Manual -->
-    <div class="method" id="method2">
+    <!-- Method 2 Column -->
+    <div class="column" id="method2">
       <h2>Method 2</h2>
-      <div class="input-group">
-        <label for="target-site-2">Bypass Site:</label>
-        <input type="text" id="target-site-2" placeholder="https://example.com" value="https://example.com" />
+      <div class="form-group">
+        <label for="bypassSite2">Bypass Site:</label>
+        <input type="text" id="bypassSite2" placeholder="Enter site to bypass">
       </div>
-      <div class="input-group">
-        <label for="session-site-2">Open Session Site (default CBC.ca):</label>
-        <input type="text" id="session-site-2" placeholder="https://www.cbc.ca" value="https://www.cbc.ca" />
+      <div class="form-group">
+        <label for="sessionSite2">Session Site:</label>
+        <input type="text" id="sessionSite2" value="https://www.cbc.ca">
       </div>
-      <button id="open-session-btn">Open Session Site</button>
-      <button id="manual-redirect-btn">Go to Bypass Site</button>
+      <button onclick="updateMethod2Links()">Update Links</button>
+      <div class="links">
+        <a id="sessionLink" href="#" target="_blank">Open Session Site</a>
+        <a id="bypassLink" href="#" target="_blank">Go to Bypass Site</a>
+      </div>
     </div>
   </div>
   
   <!-- Angled Text and Hidden Cat Easter Egg -->
   <div id="angled-text"></div>
-  <img id="cat-image" src="cat.png" alt="Cat Easter Egg" />
+  <img id="cat-image" src="cat.jpg" alt="Cat Easter Egg" />
   
-  <!-- Canvas Confetti Library for Easter Egg -->
+  <!-- Canvas Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    // Angled Text & Easter Egg Setup
+    // Method 1: Auto redirect using hidden iframe
+    function startMethod1() {
+      var bypassSite = document.getElementById('bypassSite1').value;
+      var sessionSite = document.getElementById('sessionSite1').value;
+      // Create hidden iframe to load the session site
+      var iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = sessionSite;
+      document.body.appendChild(iframe);
+      // After a 3-second delay, redirect to the bypass site
+      setTimeout(function(){
+        window.location.href = bypassSite;
+      }, 3000);
+    }
+    
+    // Method 2: Update links for manual navigation
+    function updateMethod2Links() {
+      var bypassSite = document.getElementById('bypassSite2').value;
+      var sessionSite = document.getElementById('sessionSite2').value;
+      document.getElementById('sessionLink').href = sessionSite;
+      document.getElementById('bypassLink').href = bypassSite;
+    }
+    
+    // Angled text and Easter egg functionality
     document.addEventListener("DOMContentLoaded", function () {
       const angledText = document.getElementById("angled-text");
       const catImage = document.getElementById("cat-image");
       const messages = [
         "Made by a zaga student!",
-        "Because some people don't understand grades!",
         "BRRRRR!",
         "Why did the chicken cross the road?",
         "I was bored.",
         "Do you also procrastinate?",
-        "If you're checking if you can pass, you're already cooked mg",
-        "It's easier if you ask your teacher to send out a markbook email ;)",
         "Want to see my cat? Click me!"
       ];
       const chosenMessage = messages[Math.floor(Math.random() * messages.length)];
       angledText.textContent = chosenMessage;
       
+      // If the chosen message is the cat message, add a click listener to reveal the cat and trigger confetti.
       if (chosenMessage === "Want to see my cat? Click me!") {
         angledText.style.cursor = "pointer";
         angledText.addEventListener("click", function () {
@@ -160,29 +196,6 @@
           }
         });
       }
-    });
-    
-    // Method 1: Auto-Redirect Functionality
-    document.getElementById("auto-redirect-btn").addEventListener("click", function () {
-      const targetSite = document.getElementById("target-site-1").value;
-      const sessionSite = document.getElementById("session-site-1").value;
-      // Load the session site in the hidden iframe
-      const hiddenIframe = document.getElementById("hidden-iframe");
-      hiddenIframe.src = sessionSite;
-      // After a delay, redirect to the bypass site
-      setTimeout(() => {
-        window.location.href = targetSite;
-      }, 3000); // Delay in milliseconds; adjust as needed
-    });
-    
-    // Method 2: Manual Step Functionality
-    document.getElementById("open-session-btn").addEventListener("click", function () {
-      const sessionSite = document.getElementById("session-site-2").value;
-      window.open(sessionSite, '_blank');
-    });
-    document.getElementById("manual-redirect-btn").addEventListener("click", function () {
-      const targetSite = document.getElementById("target-site-2").value;
-      window.location.href = targetSite;
     });
   </script>
 </body>
